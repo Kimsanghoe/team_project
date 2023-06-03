@@ -38,7 +38,9 @@ out/
 
 ### create-react-app ###
 .idea/
+.vscode/
 node_modules/
+build/
 .DS_Store
 *.tgz
 my-app*
