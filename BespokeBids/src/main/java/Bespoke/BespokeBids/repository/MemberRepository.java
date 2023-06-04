@@ -1,12 +1,11 @@
 package Bespoke.BespokeBids.repository;
 
 
-import Bespoke.BespokeBids.domain.Member;
+import Bespoke.BespokeBids.domain.member.Member;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
