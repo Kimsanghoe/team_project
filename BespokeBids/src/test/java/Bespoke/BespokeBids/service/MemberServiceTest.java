@@ -3,7 +3,7 @@ package Bespoke.BespokeBids.service;
 import Bespoke.BespokeBids.LoginType;
 import Bespoke.BespokeBids.MemberStatus;
 import Bespoke.BespokeBids.MemberType;
-import Bespoke.BespokeBids.domain.Member;
+import Bespoke.BespokeBids.domain.member.Member;
 import Bespoke.BespokeBids.repository.MemberRepository;
 import jakarta.persistence.EntityManager;
 import org.junit.Test;
@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
