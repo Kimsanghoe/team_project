@@ -1,14 +1,10 @@
 package Bespoke.BespokeBids.domain.login;
 
-import Bespoke.BespokeBids.domain.Member;
-import Bespoke.BespokeBids.exception.NotCorrespondingIdException;
+import Bespoke.BespokeBids.domain.member.Member;
 import Bespoke.BespokeBids.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -18,11 +14,11 @@ public class LoginService {
 
     private final MemberRepository memberRepository;
 
-    public Member login(String userId, String password) {
-        Optional<Member> findMember = memberRepository.findByUserId(userId);
-        if(!findMember.orElseThrow(()-> new NotCorrespondingIdException("해당 이메일이 존재하지 않습니다.")).checkPassword(password)){
-            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
-        }
-        return findMember.get();
+
+    //-- null 반환시 로그인 실패 --//
+    public Member login(String loginId, String password) {
+        return memberRepository.findByUserId(loginId)
+                .filter(m -> m.getPassword().equals(password))
+                .orElse(null);
     }
 }

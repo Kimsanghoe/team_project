@@ -3,13 +3,12 @@ package Bespoke.BespokeBids.controller;
 import Bespoke.BespokeBids.LoginType;
 import Bespoke.BespokeBids.MemberStatus;
 import Bespoke.BespokeBids.MemberType;
-import Bespoke.BespokeBids.domain.Member;
+import Bespoke.BespokeBids.domain.member.Member;
 import Bespoke.BespokeBids.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,7 +27,6 @@ public class MemberController {
                        ) {
         Member member = new Member(userId, password, email, phoneNumber, address, userName, LocalDateTime.now(), MemberStatus.ACTIVE, MemberType.BUYER, LoginType.OUR);
         memberService.join(member);
-        System.out.println("실행됨");
         return "redirect:/";
     }
 
