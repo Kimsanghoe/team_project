@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react'
+import {Link} from "react-router-dom";
+import Session from "react-session-api/src";
 
 const DummyUser = {
     id: 'user0823',
     pw: 'test1234@'
 }
 
-export default function Login() {
+function Login() {
     const [id, setId] = useState("");
     const [pw, setPw] = useState("");
 
@@ -41,6 +43,7 @@ export default function Login() {
     const onClickConfirmButton = () => {
         if(id === DummyUser.id && pw === DummyUser.pw) {
             alert('로그인 성공');
+            Session.set("userId", id);
         } else {
             alert('로그인 실패');
         }
@@ -99,8 +102,12 @@ export default function Login() {
             </div>
             
             <div>
-                <button onClick={onClickConfirmButton} disabled={notAllow} className="bottomButton">확인</button>
+                <Link to="/main">
+                    <button onClick={onClickConfirmButton} disabled={notAllow} className="bottomButton">확인</button>
+                </Link>
             </div>
         </div>
     )
 }
+
+export default Login;
