@@ -1,6 +1,6 @@
 package Bespoke.BespokeBids.service;
 
-import Bespoke.BespokeBids.domain.Member;
+import Bespoke.BespokeBids.domain.member.Member;
 import Bespoke.BespokeBids.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
@@ -17,9 +16,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    /**
-     *  회원 가입
-     */
+    //회원 가입
     @Transactional
     public String join(Member member) {
         validateDuplicateMember(member);
@@ -27,9 +24,7 @@ public class MemberService {
         return member.getUserId();
     }
 
-    /**
-     *  중복 회원 검증 로직
-     * */
+    //중복 회원 검증 로직
     private void validateDuplicateMember(Member member) {
         //EXCEPTION
         Optional<Member> findMembers = memberRepository.findByUserId(member.getUserId());
@@ -37,9 +32,6 @@ public class MemberService {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
     }
-    /**
-     *
-     */
 
     public List<Member> findMember() {
         return memberRepository.findAll();
@@ -48,7 +40,4 @@ public class MemberService {
     public Member findOne(String userId) {
         return memberRepository.findOne(userId);
     }
-
-
-
 }

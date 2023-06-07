@@ -1,8 +1,9 @@
-package Bespoke.BespokeBids.domain;
+package Bespoke.BespokeBids.domain.member;
 
 import Bespoke.BespokeBids.LoginType;
 import Bespoke.BespokeBids.MemberStatus;
 import Bespoke.BespokeBids.MemberType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.hibernate.annotations.GenericGenerator;
@@ -18,11 +19,13 @@ public class Member {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "member_id",columnDefinition = "BINARY(16)")
+    @JsonIgnore
     private UUID id;
 
     @Column(unique = true)
     private String userId;
 
+    @JsonIgnore
     private String password;
     private String email;
     private String phoneNumber;
