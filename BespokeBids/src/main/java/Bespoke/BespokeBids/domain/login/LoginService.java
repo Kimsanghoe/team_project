@@ -14,7 +14,6 @@ public class LoginService {
 
     private final MemberRepository memberRepository;
 
-
     //-- null 반환시 로그인 실패 --//
     public Member login(String loginId, String password) {
         return memberRepository.findByUserId(loginId)

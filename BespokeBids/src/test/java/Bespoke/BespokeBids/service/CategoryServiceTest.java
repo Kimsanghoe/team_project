@@ -1,0 +1,88 @@
+package Bespoke.BespokeBids.service;
+
+import Bespoke.BespokeBids.domain.category.ProductCategory;
+import Bespoke.BespokeBids.dto.CategoryDTO;
+import Bespoke.BespokeBids.repository.ProductCategoryRepository;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
+import static org.assertj.core.api.Assertions.*;
+
+
+
+import java.util.Optional;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@Transactional
+public class CategoryServiceTest {
+
+    @Autowired
+    ProductCategoryRepository productCategoryRepository;
+
+    @Autowired
+    CategoryService categoryService;
+
+    @Test
+    public void 카테고리_저장()throws Exception{
+        //given
+        CategoryDTO categoryDTO = new CategoryDTO();
+
+        categoryDTO.setBranch("testBranch");
+        categoryDTO.setCode("testCode");
+        categoryDTO.setName("testName");
+
+        Long saveCategory = categoryService.saveCategory(categoryDTO);
+
+        //when
+
+        Optional<ProductCategory> findCategory = productCategoryRepository.findById(saveCategory);
+
+        //then
+        assertThat(findCategory.get().getId()).isEqualTo(saveCategory);
+    }
+
+    @Test
+    public void 카테고리_업데이트()throws Exception{
+        //given
+        CategoryDTO categoryDTO = new CategoryDTO();
+
+        categoryDTO.setBranch("testBranch");
+        categoryDTO.setCode("testCode");
+        categoryDTO.setName("testName");
+
+        Long saveCategory = categoryService.saveCategory(categoryDTO);
+
+        //when
+
+        categoryDTO.setName("updateName");
+        Long updateCategory = categoryService.updateCategory(saveCategory, categoryDTO);
+        Optional<ProductCategory> findById = productCategoryRepository.findById(updateCategory);
+        //then
+
+        assertThat(findById.get().getName()).isEqualTo("updateName");
+    }
+
+    @Test
+    public void 카테고리_삭제()throws Exception{
+        //given
+        CategoryDTO categoryDTO = new CategoryDTO();
+
+        categoryDTO.setBranch("testBranch");
+        categoryDTO.setCode("testCode");
+        categoryDTO.setName("testName");
+
+        Long saveCategory = categoryService.saveCategory(categoryDTO);
+        //when
+        categoryService.deleteCategory(saveCategory);
+        Optional<ProductCategory> findById = productCategoryRepository.findById(saveCategory);
+        //then
+        findById.isEmpty();
+
+    }
+
+}
