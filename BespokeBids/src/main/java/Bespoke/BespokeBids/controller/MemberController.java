@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
+@CrossOrigin(originPatterns = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("user")
@@ -18,15 +19,9 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping(value = "/join_our")
-    public String join(@RequestParam(value = "user_id") String userId,
-                       @RequestParam(value = "password") String password,
-                       @RequestParam(value = "email") String email,
-                       @RequestParam(value = "phone_number") String phoneNumber,
-                       @RequestParam(value = "address") String address,
-                       @RequestParam(value = "user_name") String userName
-                       ) {
-        Member member = new Member(userId, password, email, phoneNumber, address, userName, LocalDateTime.now(), MemberStatus.ACTIVE, MemberType.BUYER, LoginType.OUR);
-        memberService.join(member);
+    public String join(@RequestBody Member member) {
+        Member joinMember = new Member(member.getUserId(), member.getPassword(), member.getEmail(), member.getPhoneNumber(), member.getAddress(), member.getUserName(), LocalDateTime.now(), MemberStatus.ACTIVE, MemberType.BUYER, LoginType.OUR);
+        memberService.join(joinMember);
         return "redirect:/";
     }
 

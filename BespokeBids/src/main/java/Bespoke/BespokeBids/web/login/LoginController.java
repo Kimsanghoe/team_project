@@ -29,9 +29,6 @@ public class LoginController {
             return ResponseEntity.badRequest().body("아이디 또는 비밀번호가 맞지 않습니다.");
         }
 
-        HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
-
         // 로그인 성공 및 Member 객체 반환
         return ResponseEntity.ok(loginMember);
     }
