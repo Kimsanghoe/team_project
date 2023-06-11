@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a3b03d30-8b37-43c2-a7b5-ba590d556fb4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/BespokeBids/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/BespokeBids/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BespokeBids/src/test/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/BespokeBids/src/test/resources/application.yml" afterDir="false" />
-    </list>
+    <list default="true" id="a3b03d30-8b37-43c2-a7b5-ba590d556fb4" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,7 +24,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/team_project",
+    "last_opened_file_path": "C:/team_project/BespokeBids/build.gradle",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "프로젝트",
     "project.structure.proportion": "0.0",
@@ -48,6 +45,7 @@
       <workItem from="1686359962686" duration="35000" />
       <workItem from="1686360008489" duration="67000" />
       <workItem from="1686360083453" duration="249000" />
+      <workItem from="1686360661692" duration="45000" />
     </task>
     <servers />
   </component>
