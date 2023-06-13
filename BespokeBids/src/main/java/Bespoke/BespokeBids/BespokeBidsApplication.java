@@ -13,6 +13,8 @@ public class BespokeBidsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BespokeBidsApplication.class, args);
+
+
 	}
 
 	@Bean
@@ -23,6 +25,7 @@ public class BespokeBidsApplication {
 				registry.addMapping("/**").allowedOriginPatterns();
 			}
 		};
-	}
 
+
+	}
 }
