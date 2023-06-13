@@ -5,7 +5,7 @@ import Bespoke.BespokeBids.dto.ResponseDto;
 import Bespoke.BespokeBids.dto.SignInDto;
 import Bespoke.BespokeBids.dto.SignInResponseDto;
 import Bespoke.BespokeBids.dto.SignUpDto;
-import Bespoke.BespokeBids.repository.MemberRepository2;
+import Bespoke.BespokeBids.repository.MemberRepository;
 import Bespoke.BespokeBids.security.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final MemberRepository2 memberRepository;
+    private final MemberRepository memberRepository;
     private final TokenProvider tokenProvider;
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

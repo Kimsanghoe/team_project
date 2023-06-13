@@ -1,8 +1,5 @@
 package Bespoke.BespokeBids.domain.member;
 
-import Bespoke.BespokeBids.LoginType;
-import Bespoke.BespokeBids.MemberStatus;
-import Bespoke.BespokeBids.MemberType;
 import Bespoke.BespokeBids.dto.SignUpDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -46,19 +43,6 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     private LoginType loginType;
-
-    public Member(String userId, String password, String email, String phoneNumber, String address, String userName, LocalDateTime joinDate, MemberStatus memberStatus, MemberType memberType, LoginType loginType) {
-        this.userId = userId;
-        this.password = password;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.userName = userName;
-        this.joinDate = joinDate;
-        this.memberStatus = memberStatus;
-        this.memberType = memberType;
-        this.loginType = loginType;
-    }
 
     public Member(SignUpDto dto) {
         this.userId = dto.getUserId();
