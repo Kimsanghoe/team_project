@@ -1,5 +1,6 @@
 package Bespoke.BespokeBids.domain.category;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class ProductCategory {
     @JoinColumn (name ="parent_category_id")
     private ProductCategory parentCategory;
 
+    @JsonIgnore
     @OneToMany (mappedBy = "parentCategory", cascade = CascadeType.ALL)
     private List<ProductCategory> subCategory = new ArrayList<>();
 

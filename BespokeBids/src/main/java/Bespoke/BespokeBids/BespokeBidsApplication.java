@@ -25,7 +25,5 @@ public class BespokeBidsApplication {
 				registry.addMapping("/**").allowedOriginPatterns();
 			}
 		};
-
-
 	}
 }

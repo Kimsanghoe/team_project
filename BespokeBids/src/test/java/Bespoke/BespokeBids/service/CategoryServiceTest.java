@@ -28,15 +28,34 @@ public class CategoryServiceTest {
     CategoryService categoryService;
 
     @Test
+    @Rollback(value = false)
     public void 카테고리_저장()throws Exception{
         //given
         CategoryDTO categoryDTO = new CategoryDTO();
 
-        categoryDTO.setBranch("testBranch");
-        categoryDTO.setCode("testCode");
-        categoryDTO.setName("testName");
+        categoryDTO.setBranch("상의");
+        categoryDTO.setCode("0");
+        categoryDTO.setName("반팔티셔츠");
 
         Long saveCategory = categoryService.saveCategory(categoryDTO);
+
+        CategoryDTO categoryDTO2 = new CategoryDTO();
+
+        categoryDTO2.setBranch("상의");
+        categoryDTO2.setCode("1");
+        categoryDTO2.setName("긴팔티셔츠");
+
+        categoryService.saveCategory(categoryDTO2);
+
+        CategoryDTO categoryDTO3 = new CategoryDTO();
+
+        categoryDTO3.setBranch("하의");
+        categoryDTO3.setCode("0");
+        categoryDTO3.setName("긴바지");
+
+        categoryService.saveCategory(categoryDTO3);
+
+
 
         //when
 

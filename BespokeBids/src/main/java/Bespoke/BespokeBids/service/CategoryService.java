@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -95,6 +96,10 @@ public class CategoryService {
 
     private Optional<ProductCategory> findCategory(Long categoryId) {
         return productCategoryRepository.findById(categoryId);
+    }
+
+    public List<ProductCategory> findAll() {
+        return productCategoryRepository.findAll();
     }
 
 

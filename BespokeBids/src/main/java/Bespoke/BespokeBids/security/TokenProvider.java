@@ -27,7 +27,7 @@ public class TokenProvider {
                 .signWith(SignatureAlgorithm.HS512, SECURITY_KEY)
                 //JWT 이름, 생성일, 만료일 입력
                 .setSubject(userId)
-                .setIssuedAt(new Date())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(exprTime)
                 .compact();
     }
