@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class SignInResponseDto {
 
     private String token;
-    private int exprTime;
+    private Integer exprTime;
     private Member member;
 
 }

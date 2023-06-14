@@ -1,14 +1,12 @@
 package Bespoke.BespokeBids.dto;
 
 import Bespoke.BespokeBids.domain.category.ProductCategory;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Getter
+@Data
 @NoArgsConstructor
 public class CategoryDTO {
 
