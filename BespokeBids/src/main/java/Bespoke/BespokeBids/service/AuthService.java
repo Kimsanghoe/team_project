@@ -66,21 +66,24 @@ public class AuthService {
 
     public ResponseDto<SignInResponseDto> signIn(SignInDto dto) {
         String userId = dto.getUserId();
+        String userPassword = dto.getPassword();
 
         Member member = null;
         try {
             member = memberRepository.findByUserId(userId).get();
-            //잘못된 이메일 일경우 
+            //잘못된 아이디 일경우
             if (member == null) {
                 return ResponseDto.setFailed("Sign In Failed!");
             }
             //비밀번호가 틀릴 경우
-            if (!passwordEncoder.matches(dto.getPassword(), member.getPassword())) {
+            if (!passwordEncoder.matches(userPassword, member.getPassword())) {
                 return ResponseDto.setFailed("Sign In Failed!");
             }
         } catch (Exception e) {
             return ResponseDto.setFailed("DataBase Error!");
         }
+
+        member.setPassword("");
 
         String token = tokenProvider.create(userId);
         Integer exprTime = 3600000;

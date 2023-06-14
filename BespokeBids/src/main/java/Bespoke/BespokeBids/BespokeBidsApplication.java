@@ -7,14 +7,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-
 @SpringBootApplication(exclude = {UserDetailsServiceAutoConfiguration.class})
 public class BespokeBidsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BespokeBidsApplication.class, args);
-
-
 	}
 
 	@Bean
