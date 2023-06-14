@@ -1,1 +1,3 @@
-export const tmp = '';
+import useMemberStore from './user.store';
+
+export { useMemberStore };
