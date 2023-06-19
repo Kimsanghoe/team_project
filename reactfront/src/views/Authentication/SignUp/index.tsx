@@ -14,9 +14,8 @@ export default function SignUp(props: Props) {
     const [userPasswordCheck, setUserPasswordCheck] = useState<string>('');
     const [userName, setUserName] = useState<string>('');
     const [userPhoneNumber, setUserPhoneNumber] = useState<string>('');
-    const [userAddress, setUserAddress] = useState({
-        address: '',
-    });
+    const [userAddress, setUserAddress] = useState({ address: '' });
+    const [userDetailAddress, setUserDetailAddress] = useState<string>('');
 
     const { setAuthView } = props;
 
@@ -28,17 +27,22 @@ export default function SignUp(props: Props) {
     };
 
     const SignUpHandler = async () => {
+        let replaceUserPhoneNumber = userPhoneNumber.replaceAll('-', '');
+        let userFullAddress = userAddress.address + ' ' + userDetailAddress;
+
         const data = {
             userId: userId,
             password: userPassword,
             passwordCheck: userPasswordCheck,
             email: userEmail,
-            phoneNumber: userPhoneNumber,
-            address: userAddress.address,
+            phoneNumber: replaceUserPhoneNumber,
+            address: userFullAddress,
             userName: userName,
         };
 
         const signUpResponse = await signUpApi(data);
+
+        console.log(data);
 
         if (!signUpResponse) {
             alert('회원가입에 실패하였습니다.');
@@ -92,21 +96,27 @@ export default function SignUp(props: Props) {
                 <TextField fullWidth label="이름" variant="standard" onChange={(e) => setUserName(e.target.value)} />
                 <TextField
                     fullWidth
-                    label="휴대폰 번호"
+                    label="휴대폰 번호 ('-' 는 제외하고 입력해주세요)"
                     variant="standard"
                     onChange={(e) => setUserPhoneNumber(e.target.value)}
                 />
-                <Box sx={{ display: 'flex', alignItems: 'center' }} component="div">
+                <Box sx={{ display: 'flex', alignItems: 'flex-end' }} component="div">
                     <TextField
                         className="user_enroll_text"
-                        sx={{ width: '70%' }}
+                        sx={{ width: '80%' }}
                         label="주소"
                         variant="standard"
                         onChange={handleInput}
                         value={userAddress.address}
                     />
-                    <Post company={userAddress} setcompany={setUserAddress} />
+                    <Post width="20%" company={userAddress} setcompany={setUserAddress} />
                 </Box>
+                <TextField
+                    fullWidth
+                    label="상세 주소"
+                    variant="standard"
+                    onChange={(e) => setUserDetailAddress(e.target.value)}
+                />
             </Box>
             <Box component="div">
                 <Button fullWidth onClick={() => SignUpHandler()} variant="contained">
