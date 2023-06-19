@@ -32,22 +32,6 @@ public class WebSecurityConfig {
 //                //나머지 Request에 대해서는 모두 인증된 사용자만 사용가능하게 함
 //                .anyRequest().authenticated();
 
-        //위 방식은 버전이 바뀜으로 아래 방식을 사용함
-//        httpSecurity
-//                .cors(httpSecurityCorsConfigurer ->
-//                        httpSecurityCorsConfigurer.disable())
-//                .csrf(httpSecurityCsrfConfigurer ->
-//                        httpSecurityCsrfConfigurer.disable())
-//                .sessionManagement(httpSecuritySessionManagementConfigurer ->
-//                        httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-//                        authorizationManagerRequestMatcherRegistry.requestMatchers("/", "/api/auth/**").permitAll()
-//                                .anyRequest().authenticated());
-//
-//        httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-//
-//        return httpSecurity.build();
-
         httpSecurity
                 // https://docs.spring.io/spring-security/site/docs/current/api/deprecated-list.html -> 스프링 security 7.0에서 제거하기 위해 더 이상 지원하지 않는 API 목록
                 // CORS 정책 (현재는 Application에서 작업을 해두었으므로 기본 설정을 사용한다)
