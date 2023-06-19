@@ -14,7 +14,7 @@ export default function SignIn(props: Props) {
 
     const [cookies, setCookies] = useCookies();
 
-    const { member, setMember } = useMemberStore();
+    const { member, setMember } = useMemberStore(); // zustand 전역 변수
 
     const { setAuthView } = props;
 
@@ -47,8 +47,6 @@ export default function SignIn(props: Props) {
 
         setCookies('token', token, { expires });
         setMember(member);
-
-        console.log(member);
     };
 
     return (

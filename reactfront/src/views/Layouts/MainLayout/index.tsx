@@ -9,7 +9,7 @@ import axios from 'axios';
 export default function MainLayout() {
     const [boardResponse, setBoardResponse] = useState<string>('');
     const [cookies] = useCookies();
-    const { member } = useMemberStore();
+    const { member } = useMemberStore(); // zustand 전역 변수
 
     const getBoard = async (token: string) => {
         const requestOption = {
@@ -22,7 +22,6 @@ export default function MainLayout() {
             .get('http://localhost:8080/api/bids/', requestOption)
             .then((response) => {
                 setBoardResponse(response.data);
-                console.log(requestOption);
             })
             .catch((e) => '');
     };
