@@ -83,8 +83,6 @@ public class AuthService {
             return ResponseDto.setFailed("DataBase Error!");
         }
 
-        member.setPassword("");
-
         String token = tokenProvider.create(userId);
         Integer exprTime = 3600000;
 
