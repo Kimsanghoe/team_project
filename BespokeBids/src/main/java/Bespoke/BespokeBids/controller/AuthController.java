@@ -6,8 +6,11 @@ import Bespoke.BespokeBids.dto.SignInResponseDto;
 import Bespoke.BespokeBids.dto.SignUpDto;
 import Bespoke.BespokeBids.service.AuthService;
 import Bespoke.BespokeBids.service.CategoryService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,9 +23,9 @@ public class AuthController {
     private final CategoryService categoryService;
 
     @PostMapping("/signUp")
-    public ResponseDto<?> singUp(@RequestBody SignUpDto requestBody) {
-        System.out.println("requestBody.toString() = " + requestBody.toString());
-        return authService.signUp(requestBody);
+    public ResponseDto<?> singUp(@ModelAttribute SignUpDto requestBody,
+                                 @RequestParam(name = "profilePicture", required = false) MultipartFile profilePicture) {
+        return authService.signUp(requestBody, profilePicture);
     }
 
     @PostMapping("/signIn")
