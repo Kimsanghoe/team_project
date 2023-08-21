@@ -41,6 +41,8 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private LoginType loginType;
 
+    private String profilePictureUrl;
+
     public Member(SignUpDto dto) {
         this.userId = dto.getUserId();
         this.password = dto.getPassword();

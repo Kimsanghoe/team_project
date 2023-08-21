@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -18,13 +19,25 @@ public class AuthService {
 
     private final MemberRepository memberRepository;
     private final TokenProvider tokenProvider;
+    private final FileService fileService;
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     
-    public ResponseDto<?> signUp(SignUpDto dto) {
+    public ResponseDto<?> signUp(SignUpDto dto, MultipartFile profilePicture) {
         String userId = dto.getUserId();
         String password = dto.getPassword();
         String passwordCheck = dto.getPasswordCheck();
+
+        /**
+         * 프로필 사진 업로드
+         */
+        String profilePictureUrl = null;
+        if (profilePicture != null) {
+            profilePictureUrl = fileService.saveProfilePicture(profilePicture);
+            if (profilePictureUrl == null) {
+                return ResponseDto.setFailed("Failed to upload profile picture");
+            }
+        }
         
         // id 중복 확인
         try {
@@ -62,6 +75,11 @@ public class AuthService {
          * 성공시 반환
          */
         return ResponseDto.setSuccess("Sign Up Success!!", null);
+
+
+
+
+
     }
 
     public ResponseDto<SignInResponseDto> signIn(SignInDto dto) {

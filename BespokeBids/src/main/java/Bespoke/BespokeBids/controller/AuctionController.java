@@ -2,7 +2,6 @@ package Bespoke.BespokeBids.controller;
 
 import Bespoke.BespokeBids.dto.AuctionRegistrationDto;
 import Bespoke.BespokeBids.dto.ResponseDto;
-import Bespoke.BespokeBids.repository.PhotoRepository;
 import Bespoke.BespokeBids.service.AuctionService;
 import Bespoke.BespokeBids.service.AuthService;
 import lombok.RequiredArgsConstructor;
