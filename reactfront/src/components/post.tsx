@@ -19,8 +19,6 @@ const Post = (props: any) => {
             fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
         }
 
-        console.log(fullAddress);
-
         props.setcompany({
             ...props.userAddress,
             address: fullAddress,
