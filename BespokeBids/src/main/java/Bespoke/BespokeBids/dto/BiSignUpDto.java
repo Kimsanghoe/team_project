@@ -1,5 +1,6 @@
 package Bespoke.BespokeBids.dto;
 
+
 import lombok.*;
 
 @Getter
@@ -7,7 +8,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SignUpDto{
+public class BiSignUpDto{
 
     private String userId;
     private String password;
@@ -17,9 +18,9 @@ public class SignUpDto{
     private String address;
     private String userName;
     private String profilePictureURL;
+    private String businessNumber;
 
     public void passwordEncoding(String password) {
         this.password = password;
     }
-
 }

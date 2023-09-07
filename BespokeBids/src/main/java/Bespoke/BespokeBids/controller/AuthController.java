@@ -1,14 +1,12 @@
 package Bespoke.BespokeBids.controller;
 
-import Bespoke.BespokeBids.dto.ResponseDto;
-import Bespoke.BespokeBids.dto.SignInDto;
-import Bespoke.BespokeBids.dto.SignInResponseDto;
-import Bespoke.BespokeBids.dto.SignUpDto;
+import Bespoke.BespokeBids.dto.*;
 import Bespoke.BespokeBids.service.AuthService;
 import Bespoke.BespokeBids.service.CategoryService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,14 +15,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@Slf4j
 public class AuthController {
 
     private final AuthService authService;
     private final CategoryService categoryService;
 
     @PostMapping("/signUp")
-    public ResponseDto<?> singUp(@ModelAttribute SignUpDto requestBody,
+    public ResponseDto<?> singUp(@RequestBody SignUpDto requestBody,
                                  @RequestParam(name = "profilePicture", required = false) MultipartFile profilePicture) {
+
+        log.info("requestBody : " + requestBody);
         return authService.signUp(requestBody, profilePicture);
     }
 
@@ -36,5 +37,11 @@ public class AuthController {
     @PostMapping("/")
     public List<?> category() {
         return categoryService.findAll();
+    }
+
+    @PostMapping("/bi-signUp")
+    public ResponseDto<?> biSingUp(@RequestBody BiSignUpDto requestBody,
+                                 @RequestParam(name = "profilePicture", required = false) MultipartFile profilePicture) {
+        return authService.biSignUp(requestBody, profilePicture);
     }
 }
