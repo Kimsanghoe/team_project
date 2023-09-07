@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-public class CategoryDTO {
+public class CategoryDto {
 
     private Long categoryId;
     private String branch;
@@ -16,9 +16,9 @@ public class CategoryDTO {
     private String name;
     private String parentCategoryName;
     private Integer level;
-    private Map<String, CategoryDTO> children;
+    private Map<String, CategoryDto> children;
 
-    public CategoryDTO (ProductCategory entity) {
+    public CategoryDto(ProductCategory entity) {
 
         this.categoryId = entity.getId();
         this.branch = entity.getBranch();
@@ -37,7 +37,7 @@ public class CategoryDTO {
 
         this.children = entity.getSubCategory() == null ? null :
                 entity.getSubCategory().stream().collect(Collectors.toMap(
-                        ProductCategory::getName, CategoryDTO::new
+                        ProductCategory::getName, CategoryDto::new
         ));
     }
 

@@ -1,7 +1,7 @@
 package Bespoke.BespokeBids.service;
 
 import Bespoke.BespokeBids.domain.category.ProductCategory;
-import Bespoke.BespokeBids.dto.CategoryDTO;
+import Bespoke.BespokeBids.dto.CategoryDto;
 import Bespoke.BespokeBids.repository.ProductCategoryRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +31,7 @@ public class CategoryServiceTest {
     @Rollback(value = false)
     public void 카테고리_저장()throws Exception{
         //given
-        CategoryDTO categoryDTO = new CategoryDTO();
+        CategoryDto categoryDTO = new CategoryDto();
 
         categoryDTO.setBranch("상의");
         categoryDTO.setCode("0");
@@ -39,21 +39,21 @@ public class CategoryServiceTest {
 
         Long saveCategory = categoryService.saveCategory(categoryDTO);
 
-        CategoryDTO categoryDTO2 = new CategoryDTO();
+        CategoryDto categoryDto2 = new CategoryDto();
 
-        categoryDTO2.setBranch("상의");
-        categoryDTO2.setCode("1");
-        categoryDTO2.setName("긴팔티셔츠");
+        categoryDto2.setBranch("상의");
+        categoryDto2.setCode("1");
+        categoryDto2.setName("긴팔티셔츠");
 
-        categoryService.saveCategory(categoryDTO2);
+        categoryService.saveCategory(categoryDto2);
 
-        CategoryDTO categoryDTO3 = new CategoryDTO();
+        CategoryDto categoryDto3 = new CategoryDto();
 
-        categoryDTO3.setBranch("하의");
-        categoryDTO3.setCode("0");
-        categoryDTO3.setName("긴바지");
+        categoryDto3.setBranch("하의");
+        categoryDto3.setCode("0");
+        categoryDto3.setName("긴바지");
 
-        categoryService.saveCategory(categoryDTO3);
+        categoryService.saveCategory(categoryDto3);
 
 
 
@@ -68,7 +68,7 @@ public class CategoryServiceTest {
     @Test
     public void 카테고리_업데이트()throws Exception{
         //given
-        CategoryDTO categoryDTO = new CategoryDTO();
+        CategoryDto categoryDTO = new CategoryDto();
 
         categoryDTO.setBranch("testBranch");
         categoryDTO.setCode("testCode");
@@ -89,7 +89,7 @@ public class CategoryServiceTest {
     @Test
     public void 카테고리_삭제()throws Exception{
         //given
-        CategoryDTO categoryDTO = new CategoryDTO();
+        CategoryDto categoryDTO = new CategoryDto();
 
         categoryDTO.setBranch("testBranch");
         categoryDTO.setCode("testCode");

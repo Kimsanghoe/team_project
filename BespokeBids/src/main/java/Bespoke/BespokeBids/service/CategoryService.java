@@ -1,7 +1,7 @@
 package Bespoke.BespokeBids.service;
 
 import Bespoke.BespokeBids.domain.category.ProductCategory;
-import Bespoke.BespokeBids.dto.CategoryDTO;
+import Bespoke.BespokeBids.dto.CategoryDto;
 import Bespoke.BespokeBids.repository.ProductCategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class CategoryService {
 
     private final ProductCategoryRepository productCategoryRepository;
 
-    public Long saveCategory(CategoryDTO categoryDTO) {
+    public Long saveCategory(CategoryDto categoryDTO) {
         ProductCategory category = categoryDTO.toEntity();
 //대분류 등록
         if (categoryDTO.getParentCategoryName() == null) {
@@ -55,13 +55,13 @@ public class CategoryService {
         return productCategoryRepository.save(category).getId();
     }
 
-    public Map<String, CategoryDTO> getCategoryByBranch(String branch) {
+    public Map<String, CategoryDto> getCategoryByBranch(String branch) {
         ProductCategory category = productCategoryRepository.findByBranchAndName(branch, "ROOT")
                 .orElseThrow(() -> new IllegalArgumentException("찾는 대분류가 없습니다"));
 
-        CategoryDTO categoryDTO = new CategoryDTO(category);
+        CategoryDto categoryDTO = new CategoryDto(category);
 
-        Map<String, CategoryDTO> data = new HashMap<>();
+        Map<String, CategoryDto> data = new HashMap<>();
         data.put(categoryDTO.getName(), categoryDTO);
 
         return data;
@@ -86,7 +86,7 @@ public class CategoryService {
         }
     }
 
-    public Long updateCategory (Long categoryId, CategoryDTO categoryDTO) {
+    public Long updateCategory (Long categoryId, CategoryDto categoryDTO) {
         Optional<ProductCategory> category = findCategory(categoryId);
 
         category.get().changeCategoryName(categoryDTO.getName());
