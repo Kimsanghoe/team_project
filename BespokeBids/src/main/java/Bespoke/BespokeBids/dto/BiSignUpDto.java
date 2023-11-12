@@ -17,7 +17,7 @@ public class BiSignUpDto{
     private String phoneNumber;
     private String address;
     private String userName;
-    private String profilePictureURL;
+    private String profilePicture;
     private String businessNumber;
 
     public void passwordEncoding(String password) {

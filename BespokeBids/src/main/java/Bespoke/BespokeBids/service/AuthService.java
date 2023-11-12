@@ -24,7 +24,7 @@ public class AuthService {
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     
     public ResponseDto<?> signUp(SignUpDto dto, MultipartFile profilePicture) {
-        String userId = dto.getUserId();
+        String userId = dto.getEmail();
         String password = dto.getPassword();
         String passwordCheck = dto.getPasswordCheck();
 
@@ -33,7 +33,9 @@ public class AuthService {
          */
         String profilePictureUrl = null;
         if (profilePicture != null) {
+
             profilePictureUrl = fileService.saveProfilePicture(profilePicture);
+            dto.setProfilePicture(profilePictureUrl);
             if (profilePictureUrl == null) {
                 return ResponseDto.setFailed("Failed to upload profile picture");
             }
@@ -41,7 +43,7 @@ public class AuthService {
         
         // id 중복 확인
         try {
-            if (memberRepository.existsByUserId(userId)) {// 같은 아이디가 존재하면 true 없으면 false 반환
+            if (memberRepository.existsByEmail(userId)) {// 같은 아이디가 존재하면 true 없으면 false 반환
                 return ResponseDto.setFailed("Existed Id!");
             }
         } catch (Exception e) {
@@ -77,27 +79,24 @@ public class AuthService {
         return ResponseDto.setSuccess("Sign Up Success!!", null);
 
 
-
-
-
     }
 
     public ResponseDto<SignInResponseDto> signIn(SignInDto dto) {
-        String userId = dto.getUserId();
+        String userId = dto.getEmail();
         String userPassword = dto.getPassword();
 
         Member member = null;
         try {
-            member = memberRepository.findByUserId(userId).get();
-            //잘못된 아이디 일경우
-            if (member == null) {
-                return ResponseDto.setFailed("Sign In Failed!");
-            }
+            member = memberRepository.findByEmail(userId).get();
             //비밀번호가 틀릴 경우
             if (!passwordEncoder.matches(userPassword, member.getPassword())) {
                 return ResponseDto.setFailed("Sign In Failed!");
             }
         } catch (Exception e) {
+            //잘못된 아이디 일경우
+            if (member == null) {
+                return ResponseDto.setFailed("Sign In Failed!");
+            }
             return ResponseDto.setFailed("DataBase Error!");
         }
 
@@ -109,7 +108,6 @@ public class AuthService {
     }
 
     public ResponseDto<?> biSignUp(BiSignUpDto dto, MultipartFile profilePicture) {
-        System.out.println(dto.toString());
         String userId = dto.getUserId();
         String password = dto.getPassword();
         String passwordCheck = dto.getPasswordCheck();
@@ -119,7 +117,9 @@ public class AuthService {
          */
         String profilePictureUrl = null;
         if (profilePicture != null) {
+
             profilePictureUrl = fileService.saveProfilePicture(profilePicture);
+            dto.setProfilePicture(profilePictureUrl);
             if (profilePictureUrl == null) {
                 return ResponseDto.setFailed("Failed to upload profile picture");
             }
@@ -127,7 +127,7 @@ public class AuthService {
 
         // id 중복 확인
         try {
-            if (biMemberRepository.existsByUserId(userId)) {// 같은 아이디가 존재하면 true 없으면 false 반환
+            if (biMemberRepository.existsByEmail(userId)) {// 같은 아이디가 존재하면 true 없으면 false 반환
                 return ResponseDto.setFailed("Existed Id!");
             }
         } catch (Exception e) {
@@ -162,10 +162,32 @@ public class AuthService {
          */
         return ResponseDto.setSuccess("Sign Up Success!!", null);
 
+    }
 
+    public ResponseDto<BiSignInResponseDto> biSignIn(SignInDto dto) {
+        String userId = dto.getEmail();
+        String userPassword = dto.getPassword();
 
+        BiMember biMember = null;
+        try {
+            biMember = biMemberRepository.findByEmail(userId).get();
+            //비밀번호가 틀릴 경우
+            if (!passwordEncoder.matches(userPassword, biMember.getPassword())) {
+                return ResponseDto.setFailed("Sign In Failed!");
+            }
+        } catch (Exception e) {
+            //잘못된 아이디 일경우
+            if (biMember == null) {
+                return ResponseDto.setFailed("Sign In Failed!");
+            }
+            return ResponseDto.setFailed("DataBase Error!");
+        }
 
+        String token = tokenProvider.create(userId);
+        Integer exprTime = 3600000;
 
+        BiSignInResponseDto biSignInResponseDto = new BiSignInResponseDto(token, exprTime, biMember);
+        return ResponseDto.setSuccess("Sign In Success", biSignInResponseDto);
     }
 }
 

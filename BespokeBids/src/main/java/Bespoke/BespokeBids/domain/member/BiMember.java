@@ -14,22 +14,21 @@ import java.util.UUID;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor()
 @AllArgsConstructor
 public class BiMember{
 
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "member_id", columnDefinition = "BINARY(16)")
+    @Column(name = "bi_member_id", columnDefinition = "BINARY(16)")
     @JsonIgnore
     private UUID id;
 
-    @Column(unique = true)
-    private String userId;
-
     @JsonIgnore
     private String password;
+
+    @Column(unique = true)
     private String email;
     private String phoneNumber;
     private String address;
@@ -50,10 +49,10 @@ public class BiMember{
     private String businessNumber;
 
     public BiMember(BiSignUpDto dto) {
-        this.userId = dto.getUserId();
         this.password = dto.getPassword();
         this.email = dto.getEmail();
         this.phoneNumber = dto.getPhoneNumber();
+        this.profilePictureUrl = dto.getProfilePicture();
         this.address = dto.getAddress();
         this.userName = dto.getUserName();
         this.joinDate = LocalDateTime.now();
@@ -63,5 +62,7 @@ public class BiMember{
         this.businessNumber = dto.getBusinessNumber();
     }
 
-
+   /* public void tempBiMemberForAuctionService(String id) {
+        this.id = id;
+    }*/
 }

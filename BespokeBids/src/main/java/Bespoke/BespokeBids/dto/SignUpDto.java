@@ -9,14 +9,13 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SignUpDto{
 
-    private String userId;
     private String password;
     private String passwordCheck;
     private String email;
     private String phoneNumber;
     private String address;
     private String userName;
-    private String profilePictureURL;
+    private String profilePicture;
 
     public void passwordEncoding(String password) {
         this.password = password;

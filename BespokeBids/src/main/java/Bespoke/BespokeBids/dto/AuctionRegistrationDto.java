@@ -1,6 +1,7 @@
 package Bespoke.BespokeBids.dto;
 
 import Bespoke.BespokeBids.domain.category.ProductCategory;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class AuctionRegistrationDto {
 
+    @NotBlank
+    private  String title;
 
     @NotNull
     private int productQuantity;

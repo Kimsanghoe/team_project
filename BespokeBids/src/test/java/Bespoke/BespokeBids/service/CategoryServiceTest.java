@@ -29,7 +29,7 @@ public class CategoryServiceTest {
 
     @Test
     @Rollback(value = false)
-    public void 카테고리_저장()throws Exception{
+    public void category_save()throws Exception{
         //given
         CategoryDto categoryDTO = new CategoryDto();
 
@@ -66,7 +66,7 @@ public class CategoryServiceTest {
     }
 
     @Test
-    public void 카테고리_업데이트()throws Exception{
+    public void category_update()throws Exception{
         //given
         CategoryDto categoryDTO = new CategoryDto();
 
@@ -87,7 +87,7 @@ public class CategoryServiceTest {
     }
 
     @Test
-    public void 카테고리_삭제()throws Exception{
+    public void category_delete()throws Exception{
         //given
         CategoryDto categoryDTO = new CategoryDto();
 

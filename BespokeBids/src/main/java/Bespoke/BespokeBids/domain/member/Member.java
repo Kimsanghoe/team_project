@@ -20,12 +20,10 @@ public class Member {
     @Column(name = "member_id", columnDefinition = "BINARY(16)")
     @JsonIgnore
     private UUID id;
-
-    @Column(unique = true)
-    private String userId;
-
     @JsonIgnore
     private String password;
+
+    @Column(unique = true)
     private String email;
     private String phoneNumber;
     private String address;
@@ -44,10 +42,10 @@ public class Member {
     private String profilePictureUrl;
 
     public Member(SignUpDto dto) {
-        this.userId = dto.getUserId();
         this.password = dto.getPassword();
         this.email = dto.getEmail();
         this.phoneNumber = dto.getPhoneNumber();
+        this.profilePictureUrl = dto.getProfilePicture();
         this.address = dto.getAddress();
         this.userName = dto.getUserName();
         this.joinDate = LocalDateTime.now();

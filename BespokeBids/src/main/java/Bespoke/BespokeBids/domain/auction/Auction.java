@@ -30,17 +30,10 @@ public class Auction {
 
     private String noteProductLinks;
 
-    /*@OneToMany(
-            mappedBy = "auction",
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-            orphanRemoval = true
-    )
-    private List<Photo> referencePhoto = new ArrayList<>();*/
-
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
-
+    private String title;
     private String noteRequest;
     private String workInstructions;
     private String productionNotes;
@@ -53,13 +46,6 @@ public class Auction {
     private String logoSize;
     private String logoPrintingMethod;
     private int logoColorType;
-/*
-    @OneToMany(
-            mappedBy = "auction",
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-            orphanRemoval = true
-    )
-    private List<Photo> logoPhoto = new ArrayList<>();*/
 
     private LocalDateTime productDeadline;
     @NotNull
@@ -81,6 +67,7 @@ public class Auction {
 
     public Auction(AuctionRegistrationDto dto, Member member) {
         this.member = member;
+        this.title = dto.getTitle();
         this.productQuantity = dto.getProductQuantity();
         this.noteProductLinks = dto.getNoteProductLinks();
         this.noteRequest = dto.getNoteRequests();
