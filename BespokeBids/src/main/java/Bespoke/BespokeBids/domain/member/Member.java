@@ -36,6 +36,8 @@ public class Member {
 
     private String profilePictureUrl;
 
+    private String profilePictureUrl;
+
     public Member(SignUpDto dto) {
         this.password = dto.getPassword();
         this.email = dto.getEmail();

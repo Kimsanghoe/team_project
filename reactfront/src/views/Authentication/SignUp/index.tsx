@@ -1,6 +1,10 @@
-import { Box, Button, Card, TextField, Typography } from '@mui/material';
+import { Box, Button, Card, TextField, Typography, Checkbox } from '@mui/material';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import dayjs, { Dayjs } from 'dayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useState } from 'react';
-import { signUpApi } from '../../../apis';
+import { businessNumberApi, signUpApi } from '../../../apis';
 import Post from '../../../components/post';
 
 interface Props {
@@ -17,6 +21,14 @@ export default function SignUp(props: Props) {
     const [userAddress, setUserAddress] = useState({ address: '' });
     const [userDetailAddress, setUserDetailAddress] = useState<string>('');
 
+    const [checked, setChecked] = useState(false);
+    const [businessNumber, setBusinessNumber] = useState<string>('');
+    const [startDate, setStartDate] = useState<Dayjs | null>(dayjs());
+
+    const convertTextField = () => {
+        setChecked((checked) => !checked);
+    };
+
     const { setAuthView } = props;
 
     const handleInput = (e: any) => {
@@ -27,18 +39,52 @@ export default function SignUp(props: Props) {
     };
 
     const SignUpHandler = async () => {
+        var businessNumberApiResponse;
+
         let replaceUserPhoneNumber = userPhoneNumber.replaceAll('-', '');
         let userFullAddress = userAddress.address + ' ' + userDetailAddress;
 
-        const data = {
-            userId: userId,
-            password: userPassword,
-            passwordCheck: userPasswordCheck,
-            email: userEmail,
-            phoneNumber: replaceUserPhoneNumber,
-            address: userFullAddress,
-            userName: userName,
-        };
+        var data;
+
+        if (checked === true) {
+            const dateFormat = dayjs(startDate).format('YYYYMMDD');
+
+            const businessData = {
+                b_no: businessNumber,
+                start_dt: dateFormat,
+                p_nm: userName,
+            };
+
+            businessNumberApiResponse = await businessNumberApi(businessData);
+            console.log(businessNumberApiResponse);
+
+            data = {
+                userId: userId,
+                password: userPassword,
+                passwordCheck: userPasswordCheck,
+                email: userEmail,
+                phoneNumber: replaceUserPhoneNumber,
+                address: userFullAddress,
+                userName: userName,
+                //businessNumber: businessNumber,
+            };
+        } else {
+            data = {
+                userId: userId,
+                password: userPassword,
+                passwordCheck: userPasswordCheck,
+                email: userEmail,
+                phoneNumber: replaceUserPhoneNumber,
+                address: userFullAddress,
+                userName: userName,
+            };
+        }
+
+        if (!businessNumberApiResponse && checked === true) {
+            alert('사업자 등록 정보가 잘못되었습니다.');
+            return;
+        }
+
 
         const signUpResponse = await signUpApi(data);
 
@@ -50,6 +96,7 @@ export default function SignUp(props: Props) {
         }
 
         if (!signUpResponse.result) {
+            console.log(signUpResponse.result);
             alert('회원가입에 실패하였습니다.');
             return;
         }
@@ -64,7 +111,7 @@ export default function SignUp(props: Props) {
             <Box>
                 <Typography variant="h5">회원가입</Typography>
             </Box>
-            <Box height={'50vh'}>
+            <Box height={'50vh'} sx={{ overflowY: 'scroll' }}>
                 <TextField
                     fullWidth
                     label="아이디"
@@ -110,6 +157,39 @@ export default function SignUp(props: Props) {
                         value={userAddress.address}
                     />
                     <Post width="20%" company={userAddress} setcompany={setUserAddress} />
+
+                </Box>
+                <TextField
+                    fullWidth
+                    label="상세 주소"
+                    variant="standard"
+                    onChange={(e) => setUserDetailAddress(e.target.value)}
+                />
+                <Box mt={2}>
+                    <Checkbox onChange={convertTextField} />
+                    <Typography sx={{ display: 'inline' }}>사업자 회원가입</Typography>
+                    {checked ? (
+                        <Box>
+                            <TextField
+                                fullWidth
+                                label="사업자 번호"
+                                variant="standard"
+                                sx={{ paddingBottom: '20px' }}
+                                onChange={(e) => setBusinessNumber(e.target.value)}
+                            />
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DatePicker
+                                    label="개업연월일"
+                                    value={startDate}
+                                    format="YYYY/MM/DD"
+                                    onChange={(newValue) => setStartDate(newValue)}
+                                />
+                            </LocalizationProvider>
+                        </Box>
+                    ) : (
+                        <></>
+                    )}
+
                 </Box>
                 <TextField
                     fullWidth
@@ -118,7 +198,7 @@ export default function SignUp(props: Props) {
                     onChange={(e) => setUserDetailAddress(e.target.value)}
                 />
             </Box>
-            <Box component="div">
+            <Box component="div" pt={3}>
                 <Button fullWidth onClick={() => SignUpHandler()} variant="contained">
                     회원가입
                 </Button>

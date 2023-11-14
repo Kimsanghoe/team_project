@@ -3,6 +3,8 @@ package Bespoke.BespokeBids.controller;
 import Bespoke.BespokeBids.dto.*;
 import Bespoke.BespokeBids.service.AuthService;
 import Bespoke.BespokeBids.service.CategoryService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

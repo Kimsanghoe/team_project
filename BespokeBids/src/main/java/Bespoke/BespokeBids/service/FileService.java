@@ -14,7 +14,9 @@ import java.util.UUID;
 @Service
 public class FileService {
 
+
         private static final String UPLOAD_DIRECTORY = "/team_project/BespokeBids/upload/file";
+
 
         public String saveProfilePicture(MultipartFile profilePicture) {
             try {
@@ -22,9 +24,11 @@ public class FileService {
                 if (!Files.exists(uploadPath)) {
                     Files.createDirectories(uploadPath);
                 }
+
                 String fileName = StringUtils.cleanPath(UUID.randomUUID().toString()+profilePicture.getOriginalFilename());
                 Path filePath = uploadPath.resolve(fileName);
                 Files.copy(profilePicture.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
                 return UPLOAD_DIRECTORY + "/" + fileName; // 프로필 사진 URL 생성
             } catch (IOException e) {
                 // 예외 처리 로직

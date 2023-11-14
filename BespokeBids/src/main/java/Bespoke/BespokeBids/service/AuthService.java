@@ -6,7 +6,6 @@ import Bespoke.BespokeBids.dto.*;
 import Bespoke.BespokeBids.repository.BiMemberRepository;
 import Bespoke.BespokeBids.repository.MemberRepository;
 import Bespoke.BespokeBids.security.TokenProvider;
-import jakarta.validation.constraints.Null;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,8 +34,10 @@ public class AuthService {
         String profilePictureUrl = null;
         if (profilePicture != null) {
 
+
             profilePictureUrl = fileService.saveProfilePicture(profilePicture);
             dto.setProfilePicture(profilePictureUrl);
+
             if (profilePictureUrl == null) {
                 return ResponseDto.setFailed("Failed to upload profile picture");
             }

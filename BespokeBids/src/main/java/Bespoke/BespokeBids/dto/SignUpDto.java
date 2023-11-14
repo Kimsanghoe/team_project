@@ -17,6 +17,7 @@ public class SignUpDto{
     private String userName;
     private String profilePicture;
 
+
     public void passwordEncoding(String password) {
         this.password = password;
     }
