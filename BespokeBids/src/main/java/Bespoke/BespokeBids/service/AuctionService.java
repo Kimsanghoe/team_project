@@ -34,8 +34,8 @@ public class AuctionService {
 
 
     public ResponseDto auctionRegistration(AuctionRegistrationDto dto, String userId, MultipartFile workInstruction, MultipartFile logoImg) {
-        Member member = memberRepository.findByEmail(userId).get();
-        ProductCategory productCategory = productCategoryRepository.findById((dto.getProductCategoryId())).get();
+        Member member = memberRepository.findByEmail(userId).orElse(null);
+        ProductCategory productCategory = productCategoryRepository.getOne(dto.getProductCategoryId());
         dto.setProductCategory(productCategory);
         // logo & workInstruction Img 저장
         String logoImgUrl = null;
@@ -62,9 +62,8 @@ public class AuctionService {
 
   public ResponseDto auctionBids(AuctionBidsDto dto, String email) {
 
-      BiMember biMember = biMemberRepository.findByEmail(email).get();
-      Auction auction = auctionRepository.findById(dto.getAuctionId()).get();
-
+      BiMember biMember = biMemberRepository.findByEmail(email).orElse(null);
+      Auction auction = auctionRepository.getReferenceById(dto.getAuctionId());
 
       AuctionBids saveBids = auctionBidsRepository.save(new AuctionBids(auction, biMember, dto.getBidsPrice()));
       return ResponseDto.setSuccess("AuctionBids Success!", saveBids.getId());
@@ -72,12 +71,12 @@ public class AuctionService {
   }
 
   public ResponseDto successfulBid(SuccessfulBidDto dto, String email){
-      AuctionBids auctionBids = auctionBidsRepository.findById(dto.getAuctionBidsId()).get();
+      AuctionBids auctionBids = auctionBidsRepository.getOne(dto.getAuctionBidsId());
       Auction findAuction = auctionBids.getAuction();
-      Member findMember = memberRepository.findByEmail(email).get();
-      if(findAuction.getMember() == findMember) {
-          SuccessfulBids saveSuccessfulBid = successfulBidsRepository.save(new SuccessfulBids(auctionBids));
-          return ResponseDto.setSuccess("Successful Bid!", saveSuccessfulBid);
+      Member findMember = memberRepository.findByEmail(email).orElse(null);
+      if(findAuction.getMember().getId().equals(findMember.getId())) {
+          SuccessfulBids savedSuccessfulBid = successfulBidsRepository.save(new SuccessfulBids(auctionBids));
+          return ResponseDto.setSuccess("Successful Bid!", savedSuccessfulBid);
       }else {
           return ResponseDto.setFailed("Please Check Email");
       }

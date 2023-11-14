@@ -6,6 +6,7 @@ import Bespoke.BespokeBids.dto.*;
 import Bespoke.BespokeBids.repository.BiMemberRepository;
 import Bespoke.BespokeBids.repository.MemberRepository;
 import Bespoke.BespokeBids.security.TokenProvider;
+import jakarta.validation.constraints.Null;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -87,14 +88,14 @@ public class AuthService {
 
         Member member = null;
         try {
-            member = memberRepository.findByEmail(userId).get();
+            member = memberRepository.findByEmail(userId).orElse(null);
             //비밀번호가 틀릴 경우
             if (!passwordEncoder.matches(userPassword, member.getPassword())) {
                 return ResponseDto.setFailed("Sign In Failed!");
             }
         } catch (Exception e) {
             //잘못된 아이디 일경우
-            if (member == null) {
+            if (member.equals(null)) {
                 return ResponseDto.setFailed("Sign In Failed!");
             }
             return ResponseDto.setFailed("DataBase Error!");
@@ -170,14 +171,14 @@ public class AuthService {
 
         BiMember biMember = null;
         try {
-            biMember = biMemberRepository.findByEmail(userId).get();
+            biMember = biMemberRepository.findByEmail(userId).orElse(null);
             //비밀번호가 틀릴 경우
             if (!passwordEncoder.matches(userPassword, biMember.getPassword())) {
                 return ResponseDto.setFailed("Sign In Failed!");
             }
         } catch (Exception e) {
             //잘못된 아이디 일경우
-            if (biMember == null) {
+            if (biMember.equals(null)) {
                 return ResponseDto.setFailed("Sign In Failed!");
             }
             return ResponseDto.setFailed("DataBase Error!");
