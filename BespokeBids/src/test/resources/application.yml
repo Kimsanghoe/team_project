@@ -1,11 +1,4 @@
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://helloworlddb.cpl5whkq2qfc.ap-northeast-2.rds.amazonaws.com:3306/bespokebids; #MVCC=TRUE # h2??? 1.4.200??? ?? ???? ??? ??.
-    username: kimsanghoe
-    password: tkdgh960!!
-
-  jpa:
+jpa:
     hibernate:
       ddl-auto: create
     properties:
