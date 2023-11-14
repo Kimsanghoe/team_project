@@ -71,7 +71,7 @@ public class AuctionService {
   }
 
   public ResponseDto successfulBid(SuccessfulBidDto dto, String email){
-      AuctionBids auctionBids = auctionBidsRepository.getOne(dto.getAuctionBidsId());
+      AuctionBids auctionBids = auctionBidsRepository.findById(dto.getAuctionBidsId()).get();
       Auction findAuction = auctionBids.getAuction();
       Member findMember = memberRepository.findByEmail(email).orElse(null);
       if(findAuction.getMember().getId().equals(findMember.getId())) {

@@ -38,12 +38,6 @@ public class BiMember{
     @Enumerated(EnumType.STRING)
     private MemberStatus memberStatus;
 
-    @Enumerated(EnumType.STRING)
-    private MemberType memberType;
-
-    @Enumerated(EnumType.STRING)
-    private LoginType loginType;
-
     private String profilePictureUrl;
 
     private String businessNumber;
@@ -57,12 +51,7 @@ public class BiMember{
         this.userName = dto.getUserName();
         this.joinDate = LocalDateTime.now();
         this.memberStatus = MemberStatus.ACTIVE;
-        this.memberType = MemberType.SELLER;
-        this.loginType = LoginType.OUR;
         this.businessNumber = dto.getBusinessNumber();
     }
 
-   /* public void tempBiMemberForAuctionService(String id) {
-        this.id = id;
-    }*/
 }

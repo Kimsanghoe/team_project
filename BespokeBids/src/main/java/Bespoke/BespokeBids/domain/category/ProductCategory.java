@@ -26,6 +26,7 @@ public class ProductCategory {
 
     private String name;
 
+    @JsonIgnore
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name ="parent_category_id")
     private ProductCategory parentCategory;

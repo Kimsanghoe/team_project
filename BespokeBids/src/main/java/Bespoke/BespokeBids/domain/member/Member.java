@@ -33,11 +33,6 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private MemberStatus memberStatus;
 
-    @Enumerated(EnumType.STRING)
-    private MemberType memberType;
-
-    @Enumerated(EnumType.STRING)
-    private LoginType loginType;
 
     private String profilePictureUrl;
 
@@ -50,8 +45,6 @@ public class Member {
         this.userName = dto.getUserName();
         this.joinDate = LocalDateTime.now();
         this.memberStatus = MemberStatus.ACTIVE;
-        this.memberType = MemberType.BUYER;
-        this.loginType = LoginType.OUR;
     }
 
 }
