@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/bespokebids; #MVCC=TRUE # h2버전이 1.4.200이상일 경우 적용하지 않아도 된다.
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://helloworlddb.cpl5whkq2qfc.ap-northeast-2.rds.amazonaws.com:3306/bespokebids; #MVCC=TRUE # h2??? 1.4.200??? ?? ???? ??? ??.
+    username: kimsanghoe
+    password: tkdgh960!!
 
   jpa:
     hibernate:
