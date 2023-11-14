@@ -1,14 +1,12 @@
 package Bespoke.BespokeBids.controller;
 
-import Bespoke.BespokeBids.dto.AuctionBidsDto;
-import Bespoke.BespokeBids.dto.AuctionRegistrationDto;
-import Bespoke.BespokeBids.dto.ResponseDto;
-import Bespoke.BespokeBids.dto.SuccessfulBidDto;
+import Bespoke.BespokeBids.dto.*;
 import Bespoke.BespokeBids.service.AuctionService;
 import Bespoke.BespokeBids.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
@@ -20,9 +18,14 @@ public class AuctionController {
     private final AuctionService auctionService;
 
     @GetMapping("/auction-create")
-    public ResponseDto<?> auctionRegistration(@RequestBody AuctionRegistrationDto requestBody, @AuthenticationPrincipal String userId) {
-        return auctionService.auctionRegistration(requestBody, userId);
+    public ResponseDto<?> auctionRegistration(@RequestPart(value = "dto", required = false) AuctionRegistrationDto requestBody,
+                                              @AuthenticationPrincipal String userId,
+                                              @RequestPart(name = "workInstructions", required = false) MultipartFile workInstructions,
+                                              @RequestPart(name = "logoImg", required = false) MultipartFile logoImg) {
+        return auctionService.auctionRegistration(requestBody, userId, workInstructions, logoImg);
     }
+
+
 
     @PostMapping("/auction-bids")
     public ResponseDto<?> auctionBids(@RequestBody AuctionBidsDto requestBody, @AuthenticationPrincipal String email) {

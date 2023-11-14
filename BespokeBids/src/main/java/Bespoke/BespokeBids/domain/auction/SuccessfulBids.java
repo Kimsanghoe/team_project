@@ -16,15 +16,10 @@ public class SuccessfulBids {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
-    Member member;
-
-    @ManyToOne
     @JoinColumn(name = "auction_bids_id")
     AuctionBids auctionBids;
 
-    public SuccessfulBids(Member member, AuctionBids auctionBids) {
-        this.member = member;
+    public SuccessfulBids(AuctionBids auctionBids) {
         this.auctionBids = auctionBids;
     }
 }

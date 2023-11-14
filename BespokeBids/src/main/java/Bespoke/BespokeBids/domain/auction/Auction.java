@@ -45,6 +45,7 @@ public class Auction {
     private String logoLocation;
     private String logoSize;
     private String logoPrintingMethod;
+    private String logoImg;
     private int logoColorType;
 
     private LocalDateTime productDeadline;
@@ -68,6 +69,7 @@ public class Auction {
     public Auction(AuctionRegistrationDto dto, Member member) {
         this.member = member;
         this.title = dto.getTitle();
+        this.productCategory = dto.getProductCategory();
         this.productQuantity = dto.getProductQuantity();
         this.noteProductLinks = dto.getNoteProductLinks();
         this.noteRequest = dto.getNoteRequests();
@@ -83,6 +85,7 @@ public class Auction {
         this.logoPrintingMethod = dto.getLogoPrintingMethod();
         this.logoColorType = dto.getLogoColorType();
         this.productDeadline = dto.getProductDeadline();
+        this.logoImg = dto.getLogoImg();
         this.productCreate = LocalDateTime.now();
     }
 

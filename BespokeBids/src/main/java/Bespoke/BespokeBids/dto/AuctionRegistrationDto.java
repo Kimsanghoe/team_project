@@ -3,14 +3,12 @@ package Bespoke.BespokeBids.dto;
 import Bespoke.BespokeBids.domain.category.ProductCategory;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class AuctionRegistrationDto {
@@ -24,7 +22,9 @@ public class AuctionRegistrationDto {
     private String noteRequests;
     private String workInstructions;
     private String productionNotes;
+    private String logoImg;
 
+    private Long productCategoryId;
     private ProductCategory productCategory;
 
     @NotNull
