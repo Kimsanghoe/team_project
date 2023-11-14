@@ -14,7 +14,9 @@ import java.util.UUID;
 @Service
 public class FileService {
 
-        private static final String UPLOAD_DIRECTORY = "/upload/file";
+
+        private static final String UPLOAD_DIRECTORY = "/team_project/BespokeBids/upload/file";
+
 
         public String saveProfilePicture(MultipartFile profilePicture) {
             try {
@@ -22,7 +24,8 @@ public class FileService {
                 if (!Files.exists(uploadPath)) {
                     Files.createDirectories(uploadPath);
                 }
-                String fileName = StringUtils.cleanPath(profilePicture.getOriginalFilename() + UUID.randomUUID().toString());
+
+                String fileName = StringUtils.cleanPath(UUID.randomUUID().toString()+profilePicture.getOriginalFilename());
                 Path filePath = uploadPath.resolve(fileName);
                 Files.copy(profilePicture.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 

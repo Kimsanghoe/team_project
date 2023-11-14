@@ -17,7 +17,7 @@ public class ProductCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_category_id")
-    private long id;
+    private Long id;
 
     @Column (nullable = false)
     private String branch;
@@ -26,6 +26,7 @@ public class ProductCategory {
 
     private String name;
 
+    @JsonIgnore
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name ="parent_category_id")
     private ProductCategory parentCategory;

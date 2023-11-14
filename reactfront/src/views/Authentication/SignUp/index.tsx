@@ -20,6 +20,7 @@ export default function SignUp(props: Props) {
     const [userPhoneNumber, setUserPhoneNumber] = useState<string>('');
     const [userAddress, setUserAddress] = useState({ address: '' });
     const [userDetailAddress, setUserDetailAddress] = useState<string>('');
+
     const [checked, setChecked] = useState(false);
     const [businessNumber, setBusinessNumber] = useState<string>('');
     const [startDate, setStartDate] = useState<Dayjs | null>(dayjs());
@@ -84,7 +85,10 @@ export default function SignUp(props: Props) {
             return;
         }
 
+
         const signUpResponse = await signUpApi(data);
+
+        console.log(data);
 
         if (!signUpResponse) {
             alert('회원가입에 실패하였습니다.');
@@ -153,6 +157,7 @@ export default function SignUp(props: Props) {
                         value={userAddress.address}
                     />
                     <Post width="20%" company={userAddress} setcompany={setUserAddress} />
+
                 </Box>
                 <TextField
                     fullWidth
@@ -184,7 +189,14 @@ export default function SignUp(props: Props) {
                     ) : (
                         <></>
                     )}
+
                 </Box>
+                <TextField
+                    fullWidth
+                    label="상세 주소"
+                    variant="standard"
+                    onChange={(e) => setUserDetailAddress(e.target.value)}
+                />
             </Box>
             <Box component="div" pt={3}>
                 <Button fullWidth onClick={() => SignUpHandler()} variant="contained">

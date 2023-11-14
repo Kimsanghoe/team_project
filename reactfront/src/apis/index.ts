@@ -10,6 +10,7 @@ export const signInApi = async (data: any) => {
 };
 
 export const signUpApi = async (data: any) => {
+
     const response = await axios
         .post('http://localhost:8080/api/auth/signUp', data, {
             headers: {

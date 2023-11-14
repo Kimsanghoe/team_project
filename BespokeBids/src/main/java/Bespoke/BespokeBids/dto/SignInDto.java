@@ -10,7 +10,7 @@ import lombok.*;
 public class SignInDto {
 
     @NotBlank //@NotNull 은 "", " "이 허용된다. @NotEmpty 는 " "이 허용된다.
-    private String userId;
+    private String email;
 
     @NotBlank
     private String password;
